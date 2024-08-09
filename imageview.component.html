@@ -1,0 +1,31 @@
+ <div>
+  <button (click)="toggleImages()">
+    {{ showCarousel ? 'Hide Photos' : 'Show Photos' }}
+  </button>
+</div>
+
+
+<div *ngIf="showCarousel && currentImageIndex === -1">
+  <input type="number" [(ngModel)]="inputIndex" min="0" max="{{ images.length - 1 }}" placeholder="Enter image index" />
+  <button (click)="selectImageByIndex()">Go to Image</button>
+</div>
+
+<div *ngIf="currentImageIndex !== -1" class="modal">
+  <span class="close" (click)="closeCarousel()">&times;</span>
+  <div class="carousel-content">
+    <img #zoomImage [src]="images[currentImageIndex].imageUrl" class="carousel-image" alt="Current Image" />
+    <div class="image-name">{{ images[currentImageIndex].imageName }}</div>
+
+    
+    <button class="prev" (click)="prevImage()" *ngIf="images.length > 1 && !isFirstImage()">
+      &#10094;
+    </button>
+
+    
+    <button class="next" (click)="nextImage()" *ngIf="images.length > 1 && !isLastImage()">
+      &#10095;
+    </button>
+  </div>
+</div>
+
+
